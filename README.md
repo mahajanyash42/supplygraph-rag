@@ -15,27 +15,32 @@ A vector store retrieves by similarity, not by connection, and structurally
 cannot answer this kind of question. A graph can.
 
 ## Architecture
-                Question
-                   │
-             ┌─────▼──────┐
-             │   Router    │  classifies: graph / vector / hybrid
-             └──┬───────┬─┘
-    structural  │       │  narrative
-            ┌────▼──┐ ┌──▼─────────┐
-            │ Graph  │ │  Vector     │
-            │ (Cypher│ │  (Neo4j     │
-            │  chain)│ │  vector idx)│
-            └────┬──┘ └──┬─────────┘
-                 └───┬───┘
-               ┌──────▼──────┐
-               │  Synthesis   │
-               └──────┬──────┘
-                  Final Answer
+
+```
+                    Question
+                       │
+                 ┌─────▼──────┐
+                 │   Router    │  classifies: graph / vector / hybrid
+                 └──┬───────┬─┘
+        structural  │       │  narrative
+                ┌────▼──┐ ┌──▼─────────┐
+                │ Graph  │ │  Vector     │
+                │ (Cypher│ │  (Neo4j     │
+                │  chain)│ │  vector idx)│
+                └────┬──┘ └──┬─────────┘
+                     └───┬───┘
+                   ┌──────▼──────┐
+                   │  Synthesis   │
+                   └──────┬──────┘
+                      Final Answer
+```
 
 Everything — the graph and the vector index over unstructured event reports —
 lives in a single Neo4j database (native vector index support, 5.11+).
 
 ## Repository structure
+
+```
 ├── data/
 │   └── generate_data.py      # builds the synthetic supply chain dataset (CSVs)
 ├── ingestion/
@@ -52,6 +57,7 @@ lives in a single Neo4j database (native vector index support, 5.11+).
 │   └── eval_results.txt      # output of the most recent eval run
 ├── requirements.txt
 └── .env.example
+```
 
 ## Setup
 
