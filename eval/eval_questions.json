@@ -1,0 +1,64 @@
+[
+  {
+    "id": "G1",
+    "type": "graph",
+    "question": "Which products would be impacted if Ganges Casings Ltd. stopped operating?",
+    "expected_entities": ["Orion Tablet"]
+  },
+  {
+    "id": "G2",
+    "type": "graph",
+    "question": "Name every supplier that contributes to the Orion Tablet, across every tier.",
+    "expected_entities": ["Del Rio Semiconductors", "Ganges Casings Ltd.", "Northline Chips", "Vantage Displays"]
+  },
+  {
+    "id": "G3",
+    "type": "graph",
+    "question": "Are any of our products connected to suppliers operating out of Germany?",
+    "expected_entities": []
+  },
+  {
+    "id": "G4",
+    "type": "graph",
+    "question": "Suppose Del Rio Semiconductors shuts down completely -- which of our products would be hit?",
+    "expected_entities": ["Aurora Smartphone", "NimbusBook Laptop", "Orion Tablet"]
+  },
+  {
+    "id": "G5",
+    "type": "graph",
+    "question": "If something goes wrong with the supplier providing our wiring harness, which product suffers?",
+    "expected_entities": ["NimbusBook Laptop"]
+  },
+  {
+    "id": "V1",
+    "type": "vector",
+    "question": "What's the current production capacity at the Taiwan facility during the labor dispute?",
+    "expected_keywords": ["10%"]
+  },
+  {
+    "id": "V2",
+    "type": "vector",
+    "question": "Which disruption report mentions air freight as an alternative?",
+    "expected_keywords": ["air freight"]
+  },
+  {
+    "id": "V3",
+    "type": "vector",
+    "question": "How severe is the physical damage from the fire, and what's the rebuild timeline?",
+    "expected_keywords": ["5-6 week"]
+  },
+  {
+    "id": "H1",
+    "type": "hybrid",
+    "question": "Which products are impacted by the fire at the Mexico chip sub-fab, and how long until it's resolved?",
+    "expected_entities": ["Aurora Smartphone", "NimbusBook Laptop", "Orion Tablet"],
+    "expected_keywords": ["5-6 week"]
+  },
+  {
+    "id": "H2",
+    "type": "hybrid",
+    "question": "If the India casing plant issue continues, which product is affected and what's the estimated shipping delay?",
+    "expected_entities": ["Orion Tablet"],
+    "expected_keywords": ["10-12 day"]
+  }
+]

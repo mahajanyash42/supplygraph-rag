@@ -1,0 +1,88 @@
+
+================================================================================
+[G1] (graph) Which products would be impacted if Ganges Casings Ltd. stopped operating?
+  graph-only   score=1.00  answer: If Ganges Casings Ltd. stopped operating, the Orion Tablet would be impacted.
+  vector-only  score=0.00  answer: The reports do not contain information about which specific products would be impacted if Ganges Casings Ltd. stopped operating.
+  hybrid agent score=1.00  route=graph  answer: If Ganges Casings Ltd. stopped operating, the Orion Tablet would be impacted.
+
+================================================================================
+[G2] (graph) Name every supplier that contributes to the Orion Tablet, across every tier.
+  graph-only   score=1.00  answer: The suppliers that contribute to the Orion Tablet, across every tier, are Northline Chips, Vantage Displays, Ganges Casings Ltd., and Del Rio Semiconductors.
+  vector-only  score=0.00  answer: The disruption event reports do not contain information about the suppliers that contribute to the Orion Tablet across every tier.
+  hybrid agent score=1.00  route=graph  answer: The suppliers that contribute to the Orion Tablet, across every tier, are Northline Chips, Vantage Displays, Ganges Casings Ltd., and Del Rio Semiconductors.
+
+================================================================================
+[G3] (graph) Are any of our products connected to suppliers operating out of Germany?
+  graph-only   score=1.00  answer: I don't have enough information to answer.
+  vector-only  score=0.00  answer: The disruption event reports do not contain information regarding suppliers operating out of Germany.
+  hybrid agent score=1.00  route=graph  answer: I don't have enough information to answer.
+
+================================================================================
+[G4] (graph) Suppose Del Rio Semiconductors shuts down completely -- which of our products would be hit?
+  graph-only   score=1.00  answer: If Del Rio Semiconductors shuts down completely, the products that would be affected are the Aurora Smartphone, NimbusBook Laptop, and Orion Tablet.
+  vector-only  score=0.00  answer: The event reports do not contain information about Del Rio Semiconductors or its products. Therefore, I cannot answer the question based on the provided reports.
+  hybrid agent score=1.00  route=graph  answer: If Del Rio Semiconductors shuts down completely, the products that would be affected are the Aurora Smartphone, NimbusBook Laptop, and Orion Tablet.
+
+================================================================================
+[G5] (graph) If something goes wrong with the supplier providing our wiring harness, which product suffers?
+  graph-only   score=1.00  answer: If something goes wrong with the supplier providing our wiring harness, the product that suffers is the NimbusBook Laptop.
+  vector-only  score=0.00  answer: The reports do not contain the answer to the question about which product suffers if something goes wrong with the supplier providing the wiring harness.
+  hybrid agent score=1.00  route=graph  answer: If something goes wrong with the supplier providing our wiring harness, the product that suffers is the NimbusBook Laptop.
+
+================================================================================
+[V1] (vector) What's the current production capacity at the Taiwan facility during the labor dispute?
+  graph-only   score=0.00  answer: I don't have enough information to answer.
+  vector-only  score=1.00  answer: The current production capacity at the Taiwan facility during the labor dispute is roughly 10% of normal capacity.
+  hybrid agent score=1.00  route=vector  answer: The current production capacity at the Taiwan facility during the labor dispute is roughly 10% of normal capacity.
+
+================================================================================
+[V2] (vector) Which disruption report mentions air freight as an alternative?
+  graph-only   score=0.00  answer: (error: {neo4j_code: Neo.ClientError.Statement.SyntaxError} {message: Invalid input ':': expected 'ALTER', 'ORDER BY', 'CALL', 'CREATE', 'LOAD CSV', 'START DATABASE', 'STOP DATABASE', 'DEALLOCATE', 'DELETE', 'DENY', 'DETACH', 'DROP', 'DRYRUN', 'FILTER', 'FINISH', 'FOR', 'FOREACH', 'GRANT', 'INSERT', 'LET', 'LIMIT', 'MATCH', 'MERGE', 'NODETACH', 'OFFSET', 'OPTIONAL', 'REALLOCATE', 'REMOVE', 'RENAME', 'RETURN', 'REVOKE', 'ENABLE SERVER', 'SET', 'SHOW', 'SKIP', 'TERMINATE', 'UNWIND', 'USE', 'WHEN', 'WITH' or '{' (line 1, column 7 (offset: 6))
+"Cypher:"
+       ^} {gql_status: 42001} {gql_status_description: error: syntax error or access rule violation - invalid syntax})
+  vector-only  score=1.00  answer: The disruption report that mentions air freight as an alternative is [E03] Port Closure Near India Casing Plant.
+  hybrid agent score=1.00  route=vector  answer: The disruption report that mentions air freight as an alternative is [E03] Port Closure Near India Casing Plant.
+
+================================================================================
+[V3] (vector) How severe is the physical damage from the fire, and what's the rebuild timeline?
+  graph-only   score=0.00  answer: The fire at the Mexico Chip Sub-fab has caused significant physical damage, leading to a complete halt in output. Investigators estimate that the facility will be closed for approximately 5 to 6 weeks while it is rebuilt. This disruption may also impact downstream chip production, as the sub-fab supplies raw semiconductor material further up the supply chain.
+  vector-only  score=1.00  answer: The physical damage from the fire at the Mexico Chip Sub-fab is significant, as it has halted all output. Investigators estimate a rebuild timeline of 5-6 weeks.
+  hybrid agent score=0.00  route=hybrid  answer: The fire at the Mexico Chip Sub-fab has caused significant physical damage, resulting in a complete halt of all output from the facility. Investigators estimate that the facility will be closed for approximately 5 to 6 weeks while it is rebuilt. This disruption is particularly concerning as the sub-fab supplies raw semiconductor material to other parts of the production chain, potentially affecting downstream chip production during this period.
+
+================================================================================
+[H1] (hybrid) Which products are impacted by the fire at the Mexico chip sub-fab, and how long until it's resolved?
+  graph-only   score=0.50  answer: The fire at the Mexico chip sub-fab has impacted the following products: the Aurora Smartphone, NimbusBook Laptop, and Orion Tablet. Unfortunately, the resolution timeline for these issues has not been provided.
+  vector-only  score=0.50  answer: The reports do not specify which specific products are impacted by the fire at the Mexico Chip Sub-fab. However, it is mentioned that the sub-fab supplies raw semiconductor material, which suggests that downstream chip production may be affected. The estimated closure for the facility is 5-6 weeks while it is rebuilt.
+  hybrid agent score=1.00  route=hybrid  answer: The fire at the Mexico chip sub-fab has impacted the Aurora Smartphone, NimbusBook Laptop, and Orion Tablet. The facility is expected to be closed for approximately 5-6 weeks while it is rebuilt, but a specific resolution timeline for the affected products has not been provided.
+
+================================================================================
+[H2] (hybrid) If the India casing plant issue continues, which product is affected and what's the estimated shipping delay?
+  graph-only   score=1.00  answer: If the India casing plant issue continues, the affected product is the Orion Tablet. The estimated shipping delay is about 10-12 days due to a nearby port closure that has impacted outbound shipments. For urgent orders, air freight is being considered as a costly but faster alternative.
+  vector-only  score=0.50  answer: The product affected is from the India Casing Plant, and the estimated shipping delay is 10-12 days.
+  hybrid agent score=1.00  route=hybrid  answer: If the India casing plant issue continues, the affected product is the Orion Tablet, and the estimated shipping delay is 10-12 days.
+
+================================================================================
+OVERALL AVERAGE ACCURACY, BY STRATEGY
+================================================================================
+  graph_only  : 65.00%
+  vector_only : 40.00%
+  hybrid      : 90.00%
+
+================================================================================
+ACCURACY BROKEN DOWN BY QUESTION TYPE
+================================================================================
+
+  Question type: graph
+    graph_only  : 100.00%
+    vector_only : 0.00%
+    hybrid      : 100.00%
+
+  Question type: vector
+    graph_only  : 0.00%
+    vector_only : 100.00%
+    hybrid      : 66.67%
+
+  Question type: hybrid
+    graph_only  : 75.00%
+    vector_only : 50.00%
+    hybrid      : 100.00%
