@@ -46,6 +46,7 @@ def build_vector_store():
         url=os.environ["NEO4J_URI"],
         username=os.environ["NEO4J_USERNAME"],
         password=os.environ["NEO4J_PASSWORD"],
+        database=os.environ.get("NEO4J_DATABASE", "neo4j"),
         index_name="event_embeddings",
         node_label="Event",
         text_node_property="description",

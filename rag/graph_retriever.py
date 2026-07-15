@@ -141,6 +141,7 @@ def build_chain():
         url=os.environ["NEO4J_URI"],
         username=os.environ["NEO4J_USERNAME"],
         password=os.environ["NEO4J_PASSWORD"],
+        database=os.environ.get("NEO4J_DATABASE", "neo4j"),
         enhanced_schema=True,
     )
     graph.refresh_schema()
