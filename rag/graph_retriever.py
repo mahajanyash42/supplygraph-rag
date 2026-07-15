@@ -160,6 +160,14 @@ def build_chain():
     )
     return chain
 
+_chain = None
+
+
+def get_chain():
+    global _chain
+    if _chain is None:
+        _chain = build_chain()
+    return _chain
 
 def answer_with_graph(question: str) -> dict:
     """Reusable entry point: takes a question, returns {'answer': str, 'cypher': str}.
@@ -173,7 +181,7 @@ def answer_with_graph(question: str) -> dict:
     phrasing we happen to test -- it generalizes to phrasings we HAVEN'T
     tested, instead of only ones we have.
     """
-    chain = build_chain()
+    chain = get_chain()
     result = chain.invoke({"query": question})
 
     cypher_used = None

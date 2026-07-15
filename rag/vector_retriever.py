@@ -10,6 +10,13 @@ This is for questions the graph structurally cannot answer -- details that only
 exist in the free-text report (how long something will take, what the backup
 plan is), not as a relationship between nodes.
 
+NOTE: this uses OpenAI's embedding API rather than a local sentence-transformers
+model. That's a deliberate change from the local/demo version specifically for
+deployment -- PyTorch (which sentence-transformers depends on) is too heavy for
+Render's free-tier 512MB memory limit. The stored event embeddings were
+re-computed with the same OpenAI model (see ingestion/reembed_events_openai.py)
+so query-time and stored embeddings are from the same model family.
+
 Run with:
     python vector_retriever.py
 """
@@ -18,13 +25,10 @@ import os
 
 from dotenv import load_dotenv
 from langchain_neo4j import Neo4jVector
-from langchain_huggingface import HuggingFaceEmbeddings
-from langchain_openai import ChatOpenAI
+from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_core.prompts import ChatPromptTemplate
 
 load_dotenv(override=True)
-
-EMBEDDING_MODEL_NAME = "all-MiniLM-L6-v2"  # must match embed_events.py exactly
 
 ANSWER_PROMPT = ChatPromptTemplate.from_template(
     """Answer the question using ONLY the disruption event reports below.
@@ -38,10 +42,16 @@ Question: {question}
 Answer:"""
 )
 
+_vector_store = None
+
 
 def build_vector_store():
-    embeddings = HuggingFaceEmbeddings(model_name=f"sentence-transformers/{EMBEDDING_MODEL_NAME}")
-    return Neo4jVector.from_existing_index(
+    global _vector_store
+    if _vector_store is not None:
+        return _vector_store
+
+    embeddings = OpenAIEmbeddings(model="text-embedding-3-small", dimensions=384)
+    _vector_store = Neo4jVector.from_existing_index(
         embedding=embeddings,
         url=os.environ["NEO4J_URI"],
         username=os.environ["NEO4J_USERNAME"],
@@ -52,13 +62,12 @@ def build_vector_store():
         text_node_property="description",
         embedding_node_property="embedding",
     )
+    return _vector_store
 
 
 def answer_with_vector_search(question: str, k: int = 2):
     store = build_vector_store()
 
-    # This is the actual semantic search step -- it compares the question's
-    # embedding against every event's embedding, and returns the closest matches.
     docs = store.similarity_search(question, k=k)
 
     print("\n--- Retrieved events (by meaning, not keyword) ---")
@@ -78,7 +87,7 @@ def answer_with_vector_search(question: str, k: int = 2):
 
 
 if __name__ == "__main__":
-    question = "Is there a workaround for the Vietnam Lithium Mine disruption?"
+    question = "How long will the Vietnam facility be down, and is there a backup plan?"
     answer = answer_with_vector_search(question)
     print("\n--- Answer ---")
     print(answer)
